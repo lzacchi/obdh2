@@ -13,8 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: configure
-      run: ./configure
     - name: cmocka
       run: sudo apt-get install libcmocka0
     - name: make current_sensor
