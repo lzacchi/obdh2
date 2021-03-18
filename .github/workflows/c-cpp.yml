@@ -12,15 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./firmware
+        working-directory: ./firmware/tests/devices
     
     steps:
     - uses: actions/checkout@v2
     - name: cmocka
       run: sudo apt-get install libcmocka0 libcmocka-dev
+    - name: make clean
+      run: make clean
     - name: make current_sensor
-      run: cd tests/devices && echo $PWD
-    - name: current_sensor
-      run: cd ../ && echo $PWD  
+      run: make current_sensor
+    - name: run current_sensor test
+      run: ./current_sensor_unit_test
     - name: clean
       run: cd ../ && echo $PWD
