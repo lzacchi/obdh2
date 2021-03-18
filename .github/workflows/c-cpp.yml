@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: cmocka gcc
-      run: sudo apt-get install libcmocka0 libcmocka-dev
+      run: sudo apt-get install libcmocka0 libcmocka-dev &&  sudo ldconfig
     - name: make current_sensor
       run: make current_sensor
     - name: run current_sensor test
