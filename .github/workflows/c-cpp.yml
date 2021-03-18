@@ -19,8 +19,8 @@ jobs:
     - name: cmocka
       run: sudo apt-get install libcmocka0 libcmocka-dev
     - name: make current_sensor
-      run: cd tests/devices && echo "DID CD"
+      run: cd tests/devices && echo $PWD
     - name: current_sensor
-      run: cd ../ && echo "DID OTHER CD"  
+      run: cd ../ && echo $PWD  
     - name: clean
-      run: cd ../ && echo "DID THIRD CD"
+      run: cd ../ && echo $PWD
