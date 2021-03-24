@@ -3,6 +3,6 @@
 # cd ../../../.github/workflows/
 # cd ../../firmware/tests/devices/
 
-./current_sensor_unit_test | grep -q "FAILED" && { echo "There were failed tests"; exit 1; }
+./current_sensor_unit_test | grep -q "FAILED" && { exit 255; }
 
 # echo "PASSED"
