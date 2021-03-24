@@ -13,15 +13,15 @@ jobs:
     defaults:
       run:
         working-directory: ./firmware/tests/devices
-    
+
     steps:
     - uses: actions/checkout@v2
     - name: cmocka gcc
       run: sudo apt-get install libcmocka0 libcmocka-dev
     - name: ldconfig
       run: sudo ldconfig
-    - name: make current_sensor
-      run: make current_sensor
+    - name: make all
+      run: make all
     - name: run current_sensor test
       run: ./current_sensor_unit_test
     - name: clean
