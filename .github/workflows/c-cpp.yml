@@ -22,7 +22,8 @@ jobs:
       run: sudo ldconfig
     - name: make all
       run: make all
-    - name: run current_sensor test
-      run: ./current_sensor_unit_test
+    - name: run bash script
+      run: sh ./../../../.github/workflows/run_all_tests.sh
+      shell: bash
     - name: clean
       run: make clean
