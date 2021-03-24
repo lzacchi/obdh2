@@ -10,9 +10,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./firmware/tests/devices
+    # defaults:
+      # run:
+        # working-directory: ./firmware/tests/devices
 
     steps:
     - uses: actions/checkout@v2
@@ -21,9 +21,9 @@ jobs:
     - name: ldconfig
       run: sudo ldconfig
     - name: make all
-      run: make all
+      run: cd firmware/tests/devices && make all
     - name: run bash script
-      run: sh ./../../../.github/workflows/run_all_tests.sh
+      run: sh ./.github/workflows/run_all_tests.sh
       shell: bash
     - name: clean
-      run: make clean
+      run: cd firmware/tests/devices && make clean
