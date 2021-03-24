@@ -27,3 +27,4 @@ jobs:
       shell: bash
     - name: clean
       run: cd firmware/tests/devices && make clean
+      if: succeeded() || failed()
