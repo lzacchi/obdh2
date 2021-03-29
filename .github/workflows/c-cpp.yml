@@ -22,8 +22,8 @@ jobs:
       run: sudo ldconfig
     - name: make all
       run: cd firmware/tests/devices && make all
-    - name: run temp_sensor test
-      run: cd firmware/tests/devices && ./temp_sensor_unit_test
-      shell: bash
+    - name: run current_sensor test
+      run: ./firmware/tests/devices/current_sensor_unit_test
+      # shell: bash
     - name: clean
       run: cd firmware/tests/devices && make clean
