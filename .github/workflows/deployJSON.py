@@ -38,7 +38,7 @@ else:
     # conver to json
     json_target = json.dumps(files)
 
-    with open(".github/workflows/test_list.json", "w") as json_file:
+    with open(".github/workflows/test-list.json", "w") as json_file:
         json_file.write(json_target)
     json_file.close()
 
