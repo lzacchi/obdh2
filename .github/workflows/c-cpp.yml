@@ -1,29 +1,84 @@
-name: C/C++ CI
+name: Test Workflow
 
 on:
   push:
     branches: [ github_actions ]
   pull_request:
     branches: [ github_actions ]
+  workflow_dispatch:
 
 jobs:
-  build:
+
+  # Generates Matrix
+  generate-matrix:
+    name:
 
     runs-on: ubuntu-latest
-    # defaults:
-      # run:
-        # working-directory: ./firmware/tests/devices
+
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
 
     steps:
-    - uses: actions/checkout@v2
-    - name: cmocka gcc
-      run: sudo apt-get install libcmocka0 libcmocka-dev
-    - name: ldconfig
-      run: sudo ldconfig
-    - name: make all
-      run: cd firmware/tests/devices && make all
-    - name: run current_sensor test
-      run: ./firmware/tests/devices/current_sensor_unit_test
-      # shell: bash
-    - name: clean
-      run: cd firmware/tests/devices && make clean
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      # Install required libs
+      - name: Install CMocka
+        run: sudo apt-get install libcmocka0 libcmocka-dev
+      # Create all test files
+      - name: Create Test Files
+        run: cd firmware/tests/devices && make all
+      # Generates JSON file with test program
+      - name: Create JSON file
+        run: .github/workflows/./deployJSON.py --generate firmware/tests/devices
+      # Echo the JSON file
+      - name: Resulting JSON file for matrix generation
+        run: echo "$(cat .github/workflows/test-list.json)"
+      # Set the matrix output from the JSON (manipulated to remove spaces and replace \n -> %0A, " -> \")
+      - id: set-matrix
+        name: Set matrix output from the JSON file
+        run: echo "::set-output name=matrix::$( echo "$(cat .github/workflows/test-list.json)" | sed ':a;N;$!ba;s/\n/%0A/g' )"
+
+  # Job for executing all test files
+  run-tests:
+    name: run-tests
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+      matrix: ${{fromJson(needs.generate-matrix.outputs.matrix)}}
+
+
+    env:
+      TEST_NAME: ${{ matrix.name }}
+      TEST_PATH: ${{ matrix.path }}
+
+      steps:
+        - name: Echo matrix envs
+          run: echo $TEST_NAME
+          run: echo $TEST_PATH
+
+
+
+
+
+  # build:
+
+  #   runs-on: ubuntu-latest
+  #   # defaults:
+  #     # run:
+  #       # working-directory: ./firmware/tests/devices
+
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: cmocka gcc
+  #     run: sudo apt-get install libcmocka0 libcmocka-dev
+  #   - name: ldconfig
+  #     run: sudo ldconfig
+  #   - name: make all
+  #     run: cd firmware/tests/devices && make all
+  #   - name: run current_sensor test
+  #     run: ./firmware/tests/devices/current_sensor_unit_test
+  #   - name: clean
+  #     run: cd firmware/tests/devices && make clean
