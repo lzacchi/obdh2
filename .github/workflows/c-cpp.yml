@@ -54,10 +54,11 @@ jobs:
       TEST_NAME: ${{ matrix.name }}
       TEST_PATH: ${{ matrix.path }}
 
-      steps:
-        - name: Echo matrix envs
-          run: echo $TEST_NAME
-          run: echo $TEST_PATH
+    steps:
+      - name: Echo TEST_NAME
+        run: echo $TEST_NAME
+      - name: echo TEST_PATH
+        run: echo $TEST_PATH
 
 
 
