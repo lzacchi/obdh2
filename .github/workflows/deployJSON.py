@@ -7,7 +7,7 @@ import re
 if len(sys.argv) <= 2:
 	print("\n")
 	print("Wrong arguments")
-	print("Use: ./test-deployer [flag] [parameter]")
+	print("Use: python3 test-deployer [flag] [parameter]")
 	print("\n")
 	sys.exit(1)
 else:

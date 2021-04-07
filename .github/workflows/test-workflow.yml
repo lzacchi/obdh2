@@ -58,7 +58,7 @@ jobs:
       - name: Signal run test
         run: echo  Running $TEST_NAME
       - name: Run test
-        run: $TEST_PATH
+        run: cd firmware/tests/devices && ./$TEST_NAME
 
 
 
