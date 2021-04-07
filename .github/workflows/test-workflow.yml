@@ -55,7 +55,8 @@ jobs:
       TEST_PATH: ${{ matrix.path }}
 
     steps:
+      - uses: actions/checkout@v2
       - name: Signal run test
         run: echo  Running $TEST_NAME
-      - name: LS current directory
-        run: pwd && ls -la
+      - name: Run Test
+        run: $TEST_PATH
