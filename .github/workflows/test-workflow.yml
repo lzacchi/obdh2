@@ -56,9 +56,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Signal run test
-        run: echo  Running $TEST_NAME
-      - name: LS
-        run: ls -la
-      - name: cd firmware
-        run: cd firmware/tests/devices && ls
+      - name: Make test files
+        run: cd firmware/tests/devices && make all
+      - name: Signal running test
+        run: echo Running $TEST_NAME
+      - name: Run test
+        run: $TEST_PATH
