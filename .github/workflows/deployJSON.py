@@ -27,7 +27,7 @@ else:
         if file.endswith(test_ext):
             file_name = file.replace(test_ext, '')
             test_file = file_name + ('_unit_test')
-            file_path = path + test_name
+            file_path = path + test_file
 
             file_info = {
                 "name": file_name,
