@@ -57,5 +57,5 @@ jobs:
     steps:
       - name: Signal run test
         run: echo  Running $TEST_NAME
-      - name: LS Test directory
-        run: ls firmware/tests/devices
+      - name: LS current directory
+        run: pwd && ls
