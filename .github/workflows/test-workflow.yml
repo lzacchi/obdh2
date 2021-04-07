@@ -57,29 +57,5 @@ jobs:
     steps:
       - name: Signal run test
         run: echo  Running $TEST_NAME
-      - name: Run test
-        run: cd firmware/tests/devices && ./$TEST_NAME
-
-
-
-
-
-  # build:
-
-  #   runs-on: ubuntu-latest
-  #   # defaults:
-  #     # run:
-  #       # working-directory: ./firmware/tests/devices
-
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - name: cmocka gcc
-  #     run: sudo apt-get install libcmocka0 libcmocka-dev
-  #   - name: ldconfig
-  #     run: sudo ldconfig
-  #   - name: make all
-  #     run: cd firmware/tests/devices && make all
-  #   - name: run current_sensor test
-  #     run: ./firmware/tests/devices/current_sensor_unit_test
-  #   - name: clean
-  #     run: cd firmware/tests/devices && make clean
+      - name: LS Test directory
+        run: ls firmware/tests/devices
