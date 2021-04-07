@@ -46,7 +46,7 @@ jobs:
 
     env:
       MAKE_TARGET: ${{ matrix.name }}
-      TEST_FILE: ${{ matrix.test_file }}
+      TEST_FILE: ${{ matrix.test_name }}
       TEST_PATH: ${{ matrix.path }}
 
     steps:
