@@ -23,12 +23,15 @@ else:
     }
 
     for file in file_dir:
-        if file.endswith("_unit_test"):
-            file_name = file
-            file_path = path + file
+        test_ext = "_test.c"
+        if file.endswith(test_ext):
+            file_name = file.replace(test_ext, '')
+            test_file = file_name + ('_unit_test')
+            file_path = path + file_name
 
             file_info = {
                 "name": file_name,
+                "test_name": test_file,
                 "path": file_path
             }
 

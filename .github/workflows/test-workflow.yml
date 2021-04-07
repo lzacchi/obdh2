@@ -21,12 +21,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      # Install required libs
-      - name: Install CMocka
-        run: sudo apt-get install libcmocka0 libcmocka-dev
-      # Create all test files
-      - name: Create Test Files
-        run: cd firmware/tests/devices && make all
       # Generates JSON file with test program
       - name: Create JSON file
         run: python3 .github/workflows/deployJSON.py --generate firmware/tests/devices/
@@ -51,14 +45,19 @@ jobs:
 
 
     env:
-      TEST_NAME: ${{ matrix.name }}
+      MAKE_TARGET: ${{ matrix.name }}
+      TEST_FILE: ${{ matrix.test_file }}
       TEST_PATH: ${{ matrix.path }}
 
     steps:
       - uses: actions/checkout@v2
-      - name: Make test files
-        run: cd firmware/tests/devices && make all
+      # Install required libs
+      - name: Install CMocka
+        run: sudo apt-get install libcmocka0 libcmocka-dev
+      # Create all files
+      - name: Create Test Files
+        run: cd firmware/tests/devices && make $MAKE_TARGET
       - name: Signal running test
-        run: echo Running $TEST_NAME
+        run: echo Running $TEST_FILE
       - name: Run test
         run: $TEST_PATH
