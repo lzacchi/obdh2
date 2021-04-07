@@ -58,4 +58,4 @@ jobs:
       - name: Signal run test
         run: echo  Running $TEST_NAME
       - name: LS current directory
-        run: pwd && ls
+        run: pwd && ls -la
