@@ -29,7 +29,7 @@ jobs:
         run: cd firmware/tests/devices && make all
       # Generates JSON file with test program
       - name: Create JSON file
-        run: python3 .github/workflows/deployJSON.py --generate firmware/tests/devices
+        run: python3 .github/workflows/deployJSON.py --generate firmware/tests/devices/
       # Echo the JSON file
       - name: Resulting JSON file for matrix generation
         run: echo "$(cat .github/workflows/test-list.json)"
@@ -55,10 +55,10 @@ jobs:
       TEST_PATH: ${{ matrix.path }}
 
     steps:
-      - name: Echo TEST_NAME
-        run: echo $TEST_NAME
-      - name: echo TEST_PATH
-        run: echo $TEST_PATH
+      - name: Signal run test
+        run: echo  Running $TEST_NAME
+      - name: Run test
+        run: ./$TEST_PATH
 
 
 
