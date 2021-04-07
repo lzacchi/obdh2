@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 import sys
 import os
 import json
@@ -18,22 +16,23 @@ else:
         path = "./" + sys.argv[2]
         file_dir = os.listdir(path)
 
-        print(len(path), " test files detected in " + sys.argv[2] +  " folder")
+        # print(len(path), " test files detected in " + sys.argv[2] +  " folder")
 
     files = {
         "include": []
     }
 
-    for file in path:
-        file_name = file
-        file_path = path + file
+    for file in file_dir:
+        if file.endswith("_unit_test"):
+            file_name = file
+            file_path = path + file
 
-        file_info = {
-            "name": file_name,
-            "path": file_path
-        }
+            file_info = {
+                "name": file_name,
+                "path": file_path
+            }
 
-        files['include'].append(file_info)
+            files['include'].append(file_info)
 
     # conver to json
     json_target = json.dumps(files)
