@@ -1,26 +1,27 @@
 import sys
 import os
 import json
+import re
 
 
 if len(sys.argv) <= 2:
-    print("\nWrong arguments")
-    print("Use: python3 test-deployer --generate <target directory>\n")
-
-    sys.exit(1)
+	print("\n")
+	print("Wrong arguments")
+	print("Use: python3 test-deployer [flag] [parameter]")
+	print("\n")
+	sys.exit(1)
 else:
     if sys.argv[1] == '--generate':
         # Directory path and list
         path = "./" + sys.argv[2]
         file_dir = os.listdir(path)
 
+        # print(len(path), " test files detected in " + sys.argv[2] +  " folder")
+
     files = {
         "include": []
     }
 
-    # files need to be standardized: test files end with '_test.c'
-    # and executables are '<target>_unit_test
-    # otherwise this script will have to be edited for each project
     for file in file_dir:
         if file.endswith('.c'):
             file_name = file.replace('.c', '')
@@ -35,11 +36,11 @@ else:
 
             files['include'].append(file_info)
 
-    # Convert the dictionary to JSON format
+    # conver to json
     json_target = json.dumps(files)
 
     with open(".github/workflows/test-list.json", "w") as json_file:
         json_file.write(json_target)
     json_file.close()
 
-    print("JSON created successfully for folder " + sys.argv[2])
+    print("JSON created successfully for " + sys.argv[2] + " folder")

@@ -11,7 +11,7 @@ jobs:
 
   # Generates Matrix
   generate-matrix:
-    name: Generate Matrix
+    name:
 
     runs-on: ubuntu-latest
 
@@ -21,19 +21,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        id: cache-id
-        with:
-          path: ${{ runner.temp }}/cache-directory-example
-          key: ${{ runner.os }}-cache-hello-world-key-v1.0
-      # Required action
-      - uses: airvzxf/cache-anything-new-action@v1.0.1
-        with:
-          script: 'install_cmocka.sh'
-          is_cached: ${{ steps.cache-id.outputs.cache-hit }}
-          cache: ${{ runner.temp }}/cache-directory-example
-          snapshot: '/'
-          exclude: '/boot /data /dev /mnt /proc /run /sys'
       # Generates JSON file with test program
       - name: Create JSON file
         run: python3 .github/workflows/deployJSON.py --generate firmware/tests/devices/
@@ -65,8 +52,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # Install required libs
-      # - name: Install CMocka
-        # run: sudo apt-get install libcmocka0 libcmocka-dev
+      - name: Install CMocka
+        run: sudo apt-get install libcmocka0 libcmocka-dev
       - name: Signal make target
         run: echo "Generating make file for $MAKE_TARGET"
       - name: Generate Test File
