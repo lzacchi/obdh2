@@ -4,24 +4,30 @@ import json
 
 if len(sys.argv) <= 2:
     print("\nWrong arguments")
-    print("Use: python3 test-deployer --generate <target directory>\n")
+    print("Use: python3 test-deployer --source <target directory>\n")
 
     sys.exit(1)
 else:
-    if sys.argv[1] == '--generate':
+    if sys.argv[1] == '--source':
         # Directory path and list
-        path = "./" + sys.argv[2]
+        path = sys.argv[2]
+        if path.startswith('/'):
+            path = '.' + path
+        elif not path.startswith('./'):
+            path = './' + path
         file_dir = os.listdir(path)
 
     files = {
         "include": []
     }
 
-    # files need to be standardized: test files end with '_test.c'
-    # and executables are '<target>_unit_test
-    # otherwise this script will have to be edited for each project
+    # Naming convention:
+    #   test files end with '_test.c'
+    #   and executables are '<target>_unit_test
+    #   makefile with options 'make <target>' for each test file
+    #   otherwise this script will have to be edited for each project
     for file in file_dir:
-        if file.endswith('.c'):
+        if file.endswith('_test.c'):
             file_name = file.replace('.c', '')
             test_file = file_name.replace('_test', '_unit_test')
             file_path = path + test_file
