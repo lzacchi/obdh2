@@ -2,10 +2,10 @@ name: Test Workflow
 
 on:
   push:
-    branches: [ github_actions ]
+    branches: [ dev_firmware ]
   pull_request:
-    branches: [ github_actions ]
-  workflow_dispatch:
+    branches: [ master, dev, dev_firmware]
+  workflow_dispatch:  # allows manual execution
 
 jobs:
 
