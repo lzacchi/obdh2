@@ -90,7 +90,7 @@ jobs:
         run: sudo apt-get install libcmocka0 libcmocka-dev
 
       - name: Signal make target
-        run: echo "Generating make file for $MAKE_TARGET"
+        run: echo "Generating make file"
 
       - name: Generate Test File
         run: cd firmware/tests/devices && make $MAKE_TARGET
@@ -99,4 +99,4 @@ jobs:
         run: echo "Running $TEST_FILE"
 
       - name: Run test
-        run: $TEST_PATH
+        run: cd firmware/tests/devices && ./run-all-tests.sh
