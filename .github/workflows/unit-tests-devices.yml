@@ -99,4 +99,4 @@ jobs:
         run: echo "Running $TEST_FILE"
 
       - name: Run test
-        run: cd firmware/tests/devices && ./run-all-tests.sh
+        run: cd firmware/tests/devices && bash run-all-tests.sh
